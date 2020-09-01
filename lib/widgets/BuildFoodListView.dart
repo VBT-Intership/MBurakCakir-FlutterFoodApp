@@ -21,23 +21,23 @@ class _BuildFoodListViewState extends State<BuildFoodListView> {
           return Container(
               margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
               color: Colors.white,
-              child: buildCardListView(widget.foodList[position]));
+              child: buildCardFoodList(widget.foodList[position]));
         });
   }
 }
 
-Card buildCardListView(foodModel) {
+Card buildCardFoodList(foodModel) {
   return Card(
       margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
       child: Row(
         children: [
-          buildCardImage(
+          buildCardFoodImage(
               foodModel.url, Color((int.parse(foodModel.backgroundColor)))),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildTextTitle(foodModel.title),
-              buildRowTags(foodModel),
+              buildRowFoodTags(foodModel),
               buildSizedBoxSubtitle(foodModel)
             ],
           )
@@ -50,15 +50,15 @@ Text buildTextTitle(text) {
       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold));
 }
 
-Row buildRowTags(foodModel) {
+Row buildRowFoodTags(foodModel) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Container(
-          child: buildCardFeature(
+          child: buildCardFoodHashtag(
               foodModel.hashtag1, Color(0xFFFAF2DA), Colors.orangeAccent)),
       Container(
-          child: buildCardFeature(
+          child: buildCardFoodHashtag(
               foodModel.hashtag2, Color(0xFFEFF6FE), Colors.blue))
     ],
   );
@@ -87,7 +87,7 @@ SizedBox buildSizedBoxSubtitle(foodModel) {
       ));
 }
 
-Card buildCardFeature(text, Color colorBackground, Color colorText) {
+Card buildCardFoodHashtag(text, Color colorBackground, Color colorText) {
   return Card(
       color: colorBackground,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -97,7 +97,7 @@ Card buildCardFeature(text, Color colorBackground, Color colorText) {
       )));
 }
 
-Card buildCardImage(list, color) {
+Card buildCardFoodImage(list, color) {
   return Card(
       color: color,
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -113,7 +113,7 @@ Card buildCardImage(list, color) {
           )));
 }
 
-Card buildClipRRect(imageList, colorList) {
+Card buildCardClipRRect(imageList, colorList) {
   return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       margin: EdgeInsets.fromLTRB(7, 7, 7, 7),

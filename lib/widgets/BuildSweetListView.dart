@@ -21,15 +21,16 @@ class _BuildSweetListViewState extends State<BuildSweetListView> {
           return Container(
               margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
               color: Colors.white,
-              child: buildContainer(widget.sweetList[position]));
+              child: buildColumnSweetList(widget.sweetList[position]));
         });
   }
 }
 
-Column buildContainer(sweetModel) {
+Column buildColumnSweetList(sweetModel) {
   return Column(
     children: [
-      buildClipRRect(sweetModel.url, Color((int.parse(sweetModel.colorCode)))),
+      buildCardClipRRect(
+          sweetModel.url, Color((int.parse(sweetModel.colorCode)))),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -45,7 +46,7 @@ Column buildContainer(sweetModel) {
   );
 }
 
-Card buildClipRRect(imageList, colorList) {
+Card buildCardClipRRect(imageList, colorList) {
   return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       margin: EdgeInsets.fromLTRB(7, 7, 7, 7),

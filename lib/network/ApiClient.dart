@@ -9,12 +9,12 @@ class ConnectionAPI {
     final response =
         await http.get('https://foodapp-4df3e.firebaseio.com/sweets.json');
     List sweetModelList = List<SweetModel>();
+    SweetModel sweetModel;
     if (response.statusCode == 200) {
       List<dynamic> liste = json.decode(response.body);
       for (int i = 0; i < liste.length; i++) {
-        SweetModel tempModel =
-            SweetModel.fromJson(json.decode(response.body)[i]);
-        sweetModelList.add(tempModel);
+        sweetModel = SweetModel.fromJson(json.decode(response.body)[i]);
+        sweetModelList.add(sweetModel);
       }
     } else {
       print("error : " + response.statusCode.toString());
@@ -23,15 +23,15 @@ class ConnectionAPI {
   }
 
   Future<List<FoodModel>> getFoodList() async {
-    var url = "https://foodapp-4df3e.firebaseio.com/foods.json";
-    var response = await http.get(url);
-
+    final response = await http.get(
+        'https://foodapp-4df3e.firebaseio.com/foods.json');
     List<FoodModel> foodModelList = new List();
+    FoodModel foodModel;
     if (response.statusCode == 200) {
       List<dynamic> jsonListesi = json.decode(response.body);
       for (int i = 0; i < jsonListesi.length; i++) {
-        FoodModel tempModel = FoodModel.fromJson(json.decode(response.body)[i]);
-        foodModelList.add(tempModel);
+        foodModel = FoodModel.fromJson(json.decode(response.body)[i]);
+        foodModelList.add(foodModel);
       }
     } else {
       print("error : " + response.statusCode.toString());

@@ -17,15 +17,15 @@ class HomeScreen extends StatelessWidget {
     return MaterialApp(
         title: 'Material App',
         home: Scaffold(
-          appBar: AppBar(
-              backgroundColor: Colors.white, actions: [buildRowAppBar()]),
+          appBar:
+              AppBar(backgroundColor: Colors.white, actions: [buildAppBar()]),
           body: Container(
             padding: EdgeInsets.all(10),
             child: Column(
               children: [
-                Expanded(flex: 1, child: (buildRowHeader())),
+                Expanded(flex: 1, child: (buildHeader())),
                 Expanded(flex: 2, child: BuildSweetListView(sweetListModel)),
-                Expanded(flex: 1, child: (buildColumnPopular())),
+                Expanded(flex: 1, child: (buildRowPopular())),
                 Expanded(flex: 3, child: BuildFoodListView(foodListModel))
               ],
             ),
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
         ));
   }
 
-  Container buildRowHeader() {
+  Container buildHeader() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
             padding: EdgeInsets.all(12), child: Icon(icon, color: iconColor)));
   }
 
-  Container buildColumnPopular() {
+  Container buildRowPopular() {
     return Container(
         alignment: Alignment.center,
         child: ListTile(
@@ -70,17 +70,19 @@ class HomeScreen extends StatelessWidget {
             trailing: Icon(Icons.arrow_forward, color: Colors.black)));
   }
 
-  Expanded buildRowAppBar() {
+  Expanded buildAppBar() {
     return Expanded(
         child: Row(
-      children: [
-        IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            color: Colors.black,
-            onPressed: () {}),
-        Spacer(),
-        IconButton(
-            icon: Icon(Icons.subject), color: Colors.black, onPressed: () {})
+          children: [
+            IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                color: Colors.black,
+                onPressed: () {}),
+            Spacer(),
+            IconButton(
+                icon: Icon(Icons.subject),
+                color: Colors.black,
+                onPressed: () {})
       ],
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
     ));
