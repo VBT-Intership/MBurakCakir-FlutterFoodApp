@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/SplashScreen.dart';
+import 'package:flutter_food_app/view/FoodApp.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(),
-      home: SplashScreen(),
+      home: FoodApp(),
+      // home : SplashScreen()
     );
   }
 }

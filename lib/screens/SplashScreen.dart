@@ -4,7 +4,7 @@ import 'package:flutter_food_app/model/FoodModel.dart';
 import 'package:flutter_food_app/model/SweetModel.dart';
 
 import '../network/ApiClient.dart';
-import 'Home.dart';
+import 'HomeScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -18,10 +18,11 @@ class _SplashScreenState extends State<SplashScreen> {
     getLists();
   }
 
-  void getLists() async {
+  Future<void> getLists() async {
     ConnectionAPI connection = ConnectionAPI();
     List<SweetModel> sweetList = await connection.getSweetList();
     List<FoodModel> foodList = await connection.getFoodList();
+
     Navigator.push(
         context,
         MaterialPageRoute(
