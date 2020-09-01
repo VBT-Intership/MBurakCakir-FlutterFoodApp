@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_food_app/model/FoodModel.dart';
 import 'package:flutter_food_app/model/SweetModel.dart';
+import 'package:flutter_food_app/widgets/BuildAppBar.dart';
+import 'package:flutter_food_app/widgets/BuildCardIcon.dart';
 import 'package:flutter_food_app/widgets/BuildFoodListView.dart';
+import 'package:flutter_food_app/widgets/BuildHeader.dart';
 import 'package:flutter_food_app/widgets/BuildSweetListView.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,12 +21,12 @@ class HomeScreen extends StatelessWidget {
         title: 'Material App',
         home: Scaffold(
           appBar:
-              AppBar(backgroundColor: Colors.white, actions: [buildAppBar()]),
+              AppBar(backgroundColor: Colors.white, actions: [BuildAppBar()]),
           body: Container(
             padding: EdgeInsets.all(10),
             child: Column(
               children: [
-                Expanded(flex: 1, child: (buildHeader())),
+                Expanded(flex: 1, child: (BuildHeader())),
                 Expanded(flex: 2, child: BuildSweetListView(sweetListModel)),
                 Expanded(flex: 1, child: (buildRowPopular())),
                 Expanded(flex: 3, child: BuildFoodListView(foodListModel))
@@ -31,31 +34,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ));
-  }
-
-  Container buildHeader() {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-      child: Row(
-        children: [
-          Text("What do you want\nto eat today?",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-          buildCardIcon(Icons.search, Colors.white, Colors.black)
-        ],
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      ),
-    );
-  }
-
-  Card buildCardIcon(icon, color, iconColor) {
-    return Card(
-        color: color,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-            padding: EdgeInsets.all(12), child: Icon(icon, color: iconColor)));
   }
 
   Container buildRowPopular() {
@@ -66,25 +44,8 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             subtitle: Text("Moniggo, falan filan",
                 style: TextStyle(color: CupertinoColors.inactiveGray)),
-            leading: buildCardIcon(Icons.favorite, Colors.red, Colors.white),
+            leading: BuildCardIcon(Icons.favorite, Colors.red, Colors.white),
             trailing: Icon(Icons.arrow_forward, color: Colors.black)));
   }
 
-  Expanded buildAppBar() {
-    return Expanded(
-        child: Row(
-          children: [
-            IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                color: Colors.black,
-                onPressed: () {}),
-            Spacer(),
-            IconButton(
-                icon: Icon(Icons.subject),
-                color: Colors.black,
-                onPressed: () {})
-      ],
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    ));
-  }
 }
