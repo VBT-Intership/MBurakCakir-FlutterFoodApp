@@ -18,14 +18,4 @@ class BuildHeader extends StatelessWidget {
       ),
     );
   }
-
-  Card buildCardIcon(icon, color, iconColor) {
-    return Card(
-        color: color,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-            padding: EdgeInsets.all(12), child: Icon(icon, color: iconColor)));
-  }
 }
