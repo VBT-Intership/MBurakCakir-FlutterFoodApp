@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.light(),
       home: FoodApp(),
-      // home : SplashScreen()
     );
   }
 }

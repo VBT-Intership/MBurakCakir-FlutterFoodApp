@@ -45,6 +45,22 @@ Card buildCardFoodList(foodModel) {
       ));
 }
 
+Card buildCardFoodImage(imageUrl, cardColor) {
+  return Card(
+      color: cardColor,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: 5,
+      margin: EdgeInsets.all(10),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Image.network(
+            imageUrl,
+            height: 60,
+            width: 60,
+          )));
+}
+
 Text buildTextTitle(text) {
   return Text(text,
       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold));
@@ -64,6 +80,16 @@ Row buildRowFoodTags(foodModel) {
   );
 }
 
+Card buildCardFoodHashtag(text, cardColor, colorText) {
+  return Card(
+      color: cardColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      child: (Padding(
+        padding: EdgeInsets.all(5),
+        child: Text(text, style: TextStyle(color: colorText)),
+      )));
+}
+
 SizedBox buildSizedBoxSubtitle(foodModel) {
   return SizedBox(
       width: 250,
@@ -77,7 +103,7 @@ SizedBox buildSizedBoxSubtitle(foodModel) {
                 style: TextStyle(color: Colors.grey[400]),
               )),
           Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+            margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
             child: Text(
               foodModel.rp,
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -85,30 +111,4 @@ SizedBox buildSizedBoxSubtitle(foodModel) {
           )
         ],
       ));
-}
-
-Card buildCardFoodHashtag(text, cardColor, colorText) {
-  return Card(
-      color: cardColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      child: (Padding(
-        padding: EdgeInsets.all(5),
-        child: Text(text, style: TextStyle(color: colorText)),
-      )));
-}
-
-Card buildCardFoodImage(imageUrl, cardColor) {
-  return Card(
-      color: cardColor,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 5,
-      margin: EdgeInsets.all(10),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-          padding: EdgeInsets.all(8),
-          child: Image.network(
-            imageUrl,
-            height: 60,
-            width: 60,
-          )));
 }

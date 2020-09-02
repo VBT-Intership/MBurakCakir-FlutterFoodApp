@@ -38,7 +38,7 @@ Column buildColumnSweetList(sweetModel) {
               style: TextStyle(
                   color: CupertinoColors.inactiveGray,
                   fontWeight: FontWeight.bold)),
-          Text(sweetModel.countItem.toString(),
+          Text(sweetModel.countItem.toString() + " items",
               style: TextStyle(fontWeight: FontWeight.bold))
         ],
       )
