@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/enums/EnumConstants.dart';
 import 'package:flutter_food_app/model/SweetModel.dart';
 
 class BuildSweetListView extends StatefulWidget {
@@ -57,7 +58,7 @@ Card buildCardClipRRect(imageUrl, cardColor) {
               borderRadius: BorderRadius.circular(8.0),
               child: Image.network(
                 imageUrl,
-                height: 125,
-                width: 125,
+                height: Constants.imageHeight.size,
+                width: Constants.imageWidth.size,
               ))));
 }
