@@ -87,9 +87,9 @@ SizedBox buildSizedBoxSubtitle(foodModel) {
       ));
 }
 
-Card buildCardFoodHashtag(text, Color colorBackground, Color colorText) {
+Card buildCardFoodHashtag(text, cardColor, colorText) {
   return Card(
-      color: colorBackground,
+      color: cardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       child: (Padding(
         padding: EdgeInsets.all(5),
@@ -97,9 +97,9 @@ Card buildCardFoodHashtag(text, Color colorBackground, Color colorText) {
       )));
 }
 
-Card buildCardFoodImage(list, color) {
+Card buildCardFoodImage(imageUrl, cardColor) {
   return Card(
-      color: color,
+      color: cardColor,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 5,
       margin: EdgeInsets.all(10),
@@ -107,24 +107,8 @@ Card buildCardFoodImage(list, color) {
       child: Padding(
           padding: EdgeInsets.all(8),
           child: Image.network(
-            list,
+            imageUrl,
             height: 60,
             width: 60,
           )));
-}
-
-Card buildCardClipRRect(imageList, colorList) {
-  return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.fromLTRB(7, 7, 7, 7),
-      color: colorList,
-      child: Container(
-          padding: EdgeInsets.all(5),
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(
-                imageList,
-                height: 125,
-                width: 125,
-              ))));
 }

@@ -46,17 +46,17 @@ Column buildColumnSweetList(sweetModel) {
   );
 }
 
-Card buildCardClipRRect(imageList, colorList) {
+Card buildCardClipRRect(imageUrl, cardColor) {
   return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       margin: EdgeInsets.fromLTRB(7, 7, 7, 7),
-      color: colorList,
+      color: cardColor,
       child: Container(
           padding: EdgeInsets.all(5),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.network(
-                imageList,
+                imageUrl,
                 height: 125,
                 width: 125,
               ))));
