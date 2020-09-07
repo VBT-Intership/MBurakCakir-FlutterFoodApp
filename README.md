@@ -1,6 +1,6 @@
 # flutter_food_app
 
-A Basic Food App Design. <br /><br />
+A Basic Food App with MVVM and HTTP as Web Service. <br /><br />
 **URL :** (https://foodapp-4df3e.firebaseio.com/) <br />
 **Endpoint (sweets) :** /sweets.json  <br />
 **Endpoint (foods) :** /foods.json
