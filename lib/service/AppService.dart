@@ -5,7 +5,6 @@ import 'package:flutter_food_app/model/BaseModel.dart';
 import 'package:flutter_food_app/model/ErrorModel.dart';
 import 'package:flutter_food_app/model/FoodModel.dart';
 import 'package:flutter_food_app/model/SweetModel.dart';
-import 'package:flutter_food_app/model/TaskModel.dart';
 import 'package:http/http.dart' as http;
 
 import 'IAppService.dart';
@@ -41,10 +40,6 @@ class AppService extends IAppService {
     return await httpGet("$baseUrl/foods.json", FoodModel());
   }
 
-  @override
-  Future<List<TaskModel>> getTaskList() async {
-    return await httpGet("$baseUrl2/todos.json", TaskModel());
-  }
 
   Future<dynamic> httpGet<T extends BaseModel>(String path, T model) async {
     try {
