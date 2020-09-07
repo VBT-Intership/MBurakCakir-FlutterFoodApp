@@ -24,28 +24,21 @@ class FoodAppView extends FoodViewModel {
       child: Column(
         children: [
           Expanded(flex: 1, child: BuildHeader()),
-          Expanded(flex: 2, child: buildSweetFutureBuilder()),
+          Expanded(
+              flex: 2,
+              child: buildFoodFutureBuilder<SweetModel>(listSweetModel)),
           Expanded(flex: 1, child: BuildRowPopular()),
-          Expanded(flex: 3, child: buildFoodFutureBuilder()),
+          Expanded(
+              flex: 3, child: buildFoodFutureBuilder<FoodModel>(listFoodModel)),
         ],
       ),
     );
   }
 
-  FutureBuilder<List<SweetModel>> buildSweetFutureBuilder() {
-    return FutureBuilder<List<SweetModel>>(
-      future: listSweetModel,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<SweetModel>> snapshot) {
-        return checkConnectionState(snapshot);
-      },
-    );
-  }
-
-  FutureBuilder<List<FoodModel>> buildFoodFutureBuilder() {
-    return FutureBuilder<List<FoodModel>>(
-      future: listFoodModel,
-      builder: (BuildContext context, AsyncSnapshot<List<FoodModel>> snapshot) {
+  FutureBuilder buildFoodFutureBuilder<BaseModel>(Future future) {
+    return FutureBuilder<List<BaseModel>>(
+      future: future,
+      builder: (BuildContext context, AsyncSnapshot<List<BaseModel>> snapshot) {
         return checkConnectionState(snapshot);
       },
     );
