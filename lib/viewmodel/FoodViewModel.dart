@@ -9,8 +9,8 @@ import 'package:flutter_food_app/view/FoodApp.dart';
 abstract class FoodViewModel extends State<FoodApp> {
   final baseUrl = "https://foodapp-4df3e.firebaseio.com/";
   bool isLoading = false;
-  List<SweetModel> sweetModelList = [];
-  List<FoodModel> foodModelList = [];
+  Future<List<SweetModel>> listSweetModel;
+  Future<List<FoodModel>> listFoodModel;
   IAppService appService;
 
   @override
@@ -35,18 +35,6 @@ abstract class FoodViewModel extends State<FoodApp> {
     await getFoodList();
     await getSweetList();
     changeLoading();
-    checkErrorList();
-  }
-
-  void checkErrorList() {
-    if (sweetModelList.isEmpty || foodModelList.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (context) => Dialog(
-          child: Text(".statusCode.toString()"),
-        ),
-      );
-    }
   }
 
   void changeLoading() {
@@ -56,10 +44,10 @@ abstract class FoodViewModel extends State<FoodApp> {
   }
 
   Future<void> getFoodList() async {
-    foodModelList = await appService.getFoodList();
+    listFoodModel = appService.getFoodList();
   }
 
   Future<void> getSweetList() async {
-    sweetModelList = await appService.getSweetList();
+    listSweetModel = appService.getSweetList();
   }
 }

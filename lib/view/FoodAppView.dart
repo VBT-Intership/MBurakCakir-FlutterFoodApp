@@ -12,9 +12,6 @@ import 'package:flutter_food_app/widgets/BuildSweetListView.dart';
 double margin;
 
 class FoodAppView extends FoodViewModel {
-  List<SweetModel> listSweetModel;
-  List<FoodModel> listFoodModel;
-
   @override
   Widget build(BuildContext context) {
     margin = MediaQuery.of(context).size.width * 0.02;
@@ -30,7 +27,7 @@ class FoodAppView extends FoodViewModel {
           Expanded(
               flex: 2,
               child: FutureBuilder<List<SweetModel>>(
-                future: appService.getSweetList(),
+                future: listSweetModel,
                 builder: (BuildContext context,
                     AsyncSnapshot<List<SweetModel>> snapshot) {
                   switch (snapshot.connectionState) {
@@ -56,7 +53,7 @@ class FoodAppView extends FoodViewModel {
           Expanded(
               flex: 3,
               child: FutureBuilder<List<FoodModel>>(
-                future: appService.getFoodList(),
+                future: listFoodModel,
                 builder: (BuildContext context,
                     AsyncSnapshot<List<FoodModel>> snapshot) {
                   switch (snapshot.connectionState) {
