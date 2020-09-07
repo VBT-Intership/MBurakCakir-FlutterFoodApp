@@ -25,17 +25,16 @@ class FoodAppView extends FoodViewModel {
         children: [
           Expanded(flex: 1, child: BuildHeader()),
           Expanded(
-              flex: 2,
-              child: buildFoodFutureBuilder<SweetModel>(listSweetModel)),
+              flex: 2, child: buildFutureBuilder<SweetModel>(listSweetModel)),
           Expanded(flex: 1, child: BuildRowPopular()),
           Expanded(
-              flex: 3, child: buildFoodFutureBuilder<FoodModel>(listFoodModel)),
+              flex: 3, child: buildFutureBuilder<FoodModel>(listFoodModel)),
         ],
       ),
     );
   }
 
-  FutureBuilder buildFoodFutureBuilder<BaseModel>(Future future) {
+  FutureBuilder buildFutureBuilder<BaseModel>(Future future) {
     return FutureBuilder<List<BaseModel>>(
       future: future,
       builder: (BuildContext context, AsyncSnapshot<List<BaseModel>> snapshot) {
