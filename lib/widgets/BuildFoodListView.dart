@@ -11,15 +11,18 @@ class BuildFoodListView extends StatefulWidget {
   List<FoodModel> foodList;
 }
 
+double margin;
+
 class _BuildFoodListViewState extends State<BuildFoodListView> {
   @override
   Widget build(BuildContext context) {
+    margin = MediaQuery.of(context).size.width * 0.02;
     return ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: widget.foodList.length,
         itemBuilder: (context, position) {
           return Container(
-              margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              margin: EdgeInsets.fromLTRB(margin, 0, 0, 0),
               color: Colors.white,
               child: buildCardFoodList(widget.foodList[position]));
         });
@@ -28,7 +31,7 @@ class _BuildFoodListViewState extends State<BuildFoodListView> {
 
 Card buildCardFoodList(foodModel) {
   return Card(
-      margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+      margin: EdgeInsets.fromLTRB(margin, 0, margin, margin),
       child: Row(
         children: [
           buildCardFoodImage(
@@ -50,10 +53,10 @@ Card buildCardFoodImage(imageUrl, cardColor) {
       color: cardColor,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 5,
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.all(margin),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.all(margin),
           child: Image.network(
             imageUrl,
             height: 60,
@@ -85,7 +88,7 @@ Card buildCardFoodHashtag(text, cardColor, colorText) {
       color: cardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       child: (Padding(
-        padding: EdgeInsets.all(5),
+        padding: EdgeInsets.all(margin / 2),
         child: Text(text, style: TextStyle(color: colorText)),
       )));
 }
@@ -97,13 +100,13 @@ SizedBox buildSizedBoxSubtitle(foodModel) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              margin: EdgeInsets.fromLTRB(0, margin, 0, 0),
               child: Text(
                 foodModel.owner,
                 style: TextStyle(color: Colors.grey[400]),
               )),
           Container(
-            margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
+            margin: EdgeInsets.fromLTRB(0, margin, margin, 0),
             child: Text(
               foodModel.rp,
               style: TextStyle(fontWeight: FontWeight.bold),

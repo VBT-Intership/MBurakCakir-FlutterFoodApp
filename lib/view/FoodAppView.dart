@@ -1,43 +1,90 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_food_app/model/ErrorModel.dart';
+import 'package:flutter_food_app/model/FoodModel.dart';
+import 'package:flutter_food_app/model/SweetModel.dart';
 import 'package:flutter_food_app/viewmodel/FoodViewModel.dart';
 import 'package:flutter_food_app/widgets/BuildFoodListView.dart';
 import 'package:flutter_food_app/widgets/BuildHeader.dart';
 import 'package:flutter_food_app/widgets/BuildRowPopular.dart';
 import 'package:flutter_food_app/widgets/BuildSweetListView.dart';
 
+double margin;
+
 class FoodAppView extends FoodViewModel {
+  List<SweetModel> listSweetModel;
+  List<FoodModel> listFoodModel;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: buildAppBar(context),
-        body: Container(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            children: [
-              Expanded(flex: 1, child: BuildHeader()),
-              Expanded(flex: 2, child: BuildSweetListView(sweetModelList)),
-              Expanded(flex: 1, child: BuildRowPopular()),
-              Expanded(flex: 3, child: BuildFoodListView(foodModelList))
-            ],
-          ),
-        ));
+    margin = MediaQuery.of(context).size.width * 0.02;
+    return Scaffold(appBar: buildAppBar(context), body: buildBodyContainer());
+  }
+
+  Container buildBodyContainer() {
+    return Container(
+      padding: EdgeInsets.all(margin),
+      child: Column(
+        children: [
+          Expanded(flex: 1, child: BuildHeader()),
+          Expanded(
+              flex: 2,
+              child: FutureBuilder<List<SweetModel>>(
+                future: appService.getSweetList(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<SweetModel>> snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.active:
+                    case ConnectionState.waiting:
+                      return Center(child: CircularProgressIndicator());
+                    case ConnectionState.done:
+                      if (snapshot.hasData) {
+                        return BuildSweetListView(snapshot.data);
+                      } else {
+                        final error = snapshot.error as ErrorModel;
+                        return Center(
+                          child: Text(error.text),
+                        );
+                      }
+                      break;
+                    default:
+                      return Text("Something went wrong");
+                  }
+                },
+              )),
+          Expanded(flex: 1, child: BuildRowPopular()),
+          Expanded(
+              flex: 3,
+              child: FutureBuilder<List<FoodModel>>(
+                future: appService.getFoodList(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<FoodModel>> snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.active:
+                    case ConnectionState.waiting:
+                      return Center(child: CircularProgressIndicator());
+                    case ConnectionState.done:
+                      if (snapshot.hasData) {
+                        return BuildFoodListView(snapshot.data);
+                      } else {
+                        final error = snapshot.error as ErrorModel;
+                        return Center(
+                          child: Text(error.text),
+                        );
+                      }
+                      break;
+                    default:
+                      return Text("Something went wrong");
+                  }
+                },
+              )),
+        ],
+      ),
+    );
   }
 
   AppBar buildAppBar(BuildContext context) =>
       isLoading ? buildTextAppBar() : buildIconAppBar();
-
-  Widget get buildPaddingProgress {
-    return Visibility(
-      visible: isLoading,
-      child: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.03),
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-        ),
-      ),
-    );
-  }
 
   AppBar buildTextAppBar() {
     return AppBar(
@@ -52,20 +99,35 @@ class FoodAppView extends FoodViewModel {
       actions: [
         Expanded(
             child: Row(
-          children: [
-            IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                color: Colors.black,
-                onPressed: () {}),
-            Spacer(),
-            IconButton(
-                icon: Icon(Icons.subject),
-                color: Colors.black,
-                onPressed: () {})
-          ],
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        ))
+              children: [
+                IconButton(
+                    icon: Icon(Icons.arrow_back_ios),
+                    color: Colors.black,
+                    onPressed: () {}),
+                Spacer(),
+                IconButton(
+                    icon: Icon(Icons.subject),
+                    color: Colors.black,
+                    onPressed: () {})
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ))
       ],
+    );
+  }
+
+  Widget get buildPaddingProgress {
+    return Visibility(
+      visible: isLoading,
+      child: Padding(
+        padding: EdgeInsets.all(MediaQuery
+            .of(context)
+            .size
+            .width * 0.03),
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        ),
+      ),
     );
   }
 }

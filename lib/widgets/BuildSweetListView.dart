@@ -12,15 +12,18 @@ class BuildSweetListView extends StatefulWidget {
   List<SweetModel> sweetList;
 }
 
+double margin;
+
 class _BuildSweetListViewState extends State<BuildSweetListView> {
   @override
   Widget build(BuildContext context) {
+    margin = MediaQuery.of(context).size.width * 0.02;
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: widget.sweetList.length,
         itemBuilder: (context, position) {
           return Container(
-              margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              margin: EdgeInsets.fromLTRB(margin, 0, 0, 0),
               color: Colors.white,
               child: buildColumnSweetList(widget.sweetList[position]));
         });
@@ -50,10 +53,10 @@ Column buildColumnSweetList(sweetModel) {
 Card buildCardClipRRect(imageUrl, cardColor) {
   return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.fromLTRB(7, 7, 7, 7),
+      margin: EdgeInsets.fromLTRB(margin, margin, margin, margin),
       color: cardColor,
       child: Container(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.all(margin / 2),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: Image.network(
