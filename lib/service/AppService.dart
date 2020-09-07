@@ -11,7 +11,6 @@ import 'IAppService.dart';
 
 class AppService extends IAppService {
   final baseUrl = "https://foodapp-4df3e.firebaseio.com/";
-  final baseUrl2 = "https://jsonplaceholder.typicode.com/";
 
   @override
   Future<List<SweetModel>> getSweetList() async {
@@ -21,7 +20,6 @@ class AppService extends IAppService {
   Future<List<FoodModel>> getFoodList() async {
     return await httpGet("$baseUrl/foods.json", FoodModel());
   }
-
 
   Future<dynamic> httpGet<T extends BaseModel>(String path, T model) async {
     try {

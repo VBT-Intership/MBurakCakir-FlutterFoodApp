@@ -24,60 +24,54 @@ class FoodAppView extends FoodViewModel {
       child: Column(
         children: [
           Expanded(flex: 1, child: BuildHeader()),
-          Expanded(
-              flex: 2,
-              child: FutureBuilder<List<SweetModel>>(
-                future: listSweetModel,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<SweetModel>> snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.active:
-                    case ConnectionState.waiting:
-                      return Center(child: CircularProgressIndicator());
-                    case ConnectionState.done:
-                      if (snapshot.hasData) {
-                        return BuildSweetListView(snapshot.data);
-                      } else {
-                        final error = snapshot.error as ErrorModel;
-                        return Center(
-                          child: Text(error.text),
-                        );
-                      }
-                      break;
-                    default:
-                      return Text("Something went wrong");
-                  }
-                },
-              )),
+          Expanded(flex: 2, child: buildSweetFutureBuilder()),
           Expanded(flex: 1, child: BuildRowPopular()),
-          Expanded(
-              flex: 3,
-              child: FutureBuilder<List<FoodModel>>(
-                future: listFoodModel,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<FoodModel>> snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.active:
-                    case ConnectionState.waiting:
-                      return Center(child: CircularProgressIndicator());
-                    case ConnectionState.done:
-                      if (snapshot.hasData) {
-                        return BuildFoodListView(snapshot.data);
-                      } else {
-                        final error = snapshot.error as ErrorModel;
-                        return Center(
-                          child: Text(error.text),
-                        );
-                      }
-                      break;
-                    default:
-                      return Text("Something went wrong");
-                  }
-                },
-              )),
+          Expanded(flex: 3, child: buildFoodFutureBuilder()),
         ],
       ),
     );
+  }
+
+  FutureBuilder<List<SweetModel>> buildSweetFutureBuilder() {
+    return FutureBuilder<List<SweetModel>>(
+      future: listSweetModel,
+      builder:
+          (BuildContext context, AsyncSnapshot<List<SweetModel>> snapshot) {
+        return checkConnectionState(snapshot);
+      },
+    );
+  }
+
+  FutureBuilder<List<FoodModel>> buildFoodFutureBuilder() {
+    return FutureBuilder<List<FoodModel>>(
+      future: listFoodModel,
+      builder: (BuildContext context, AsyncSnapshot<List<FoodModel>> snapshot) {
+        return checkConnectionState(snapshot);
+      },
+    );
+  }
+
+  checkConnectionState(snapshot) {
+    switch (snapshot.connectionState) {
+      case ConnectionState.active:
+      case ConnectionState.waiting:
+        return Center(child: CircularProgressIndicator());
+      case ConnectionState.done:
+        if (snapshot.hasData) {
+          if (snapshot is AsyncSnapshot<List<FoodModel>>)
+            return BuildFoodListView(snapshot.data);
+          else
+            return BuildSweetListView(snapshot.data);
+        } else {
+          final error = snapshot.error as ErrorModel;
+          return Center(
+            child: Text(error.text),
+          );
+        }
+        break;
+      default:
+        return Text("Something went wrong");
+    }
   }
 
   AppBar buildAppBar(BuildContext context) =>
