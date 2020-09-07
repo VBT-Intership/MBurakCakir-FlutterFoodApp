@@ -13,24 +13,6 @@ class AppService extends IAppService {
   final baseUrl = "https://foodapp-4df3e.firebaseio.com/";
   final baseUrl2 = "https://jsonplaceholder.typicode.com/";
 
-  // @override
-  // Future<List<FoodModel>> getFoodList() async {
-  //   try {
-  //     final response = await http.get("$baseUrl/foods.json");
-  //     switch (response.statusCode) {
-  //       case HttpStatus.ok:
-  //         final jsonBody = jsonDecode(response.body);
-  //         return jsonBody
-  //             .map((e) => FoodModel.fromJson(e))
-  //             .cast<FoodModel>()
-  //             .toList();
-  //       default:
-  //     }
-  //   } catch (e) {
-  //     throw ErrorModel("Not found");
-  //   }
-  // }
-
   @override
   Future<List<SweetModel>> getSweetList() async {
     return await httpGet<SweetModel>("$baseUrl/sweets.json", SweetModel());
@@ -59,8 +41,6 @@ class AppService extends IAppService {
 
   dynamic _bodyParser<T extends BaseModel>(String body, BaseModel model) {
     final jsonBody = jsonDecode(body);
-
-    print("Hello");
 
     if (jsonBody is List) {
       return jsonBody.map((e) => model.fromJson(e)).cast<T>().toList();
