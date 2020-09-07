@@ -13,15 +13,19 @@ class BuildCardIcon extends StatefulWidget {
 }
 
 class _BuildCardIconState extends State<BuildCardIcon> {
+  double width;
+
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width * 0.03;
     return Card(
         color: widget.cardColor,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(width)),
         child: Padding(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.all(width),
             child: Icon(widget.icon, color: widget.iconColor)));
   }
 }
